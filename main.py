@@ -5,6 +5,7 @@ def tic_tac_toe():
         [0, 0, 0], \
         [0, 0, 0]
     morp = list(morp)
+
     def print_plateau():
         k = 0
         print("  ABC")
@@ -16,7 +17,7 @@ def tic_tac_toe():
             résultat = str(c)
             résultat = résultat + " "
             while l < 3:
-                if morp[k][l] >0:
+                if morp[k][l] > 0:
                     if morp[k][l] == 1:
                         case = "X"
                     elif morp[k][l] == 2:
@@ -65,7 +66,8 @@ def tic_tac_toe():
 
         else:
             return 0
-    def insert_value(value,letter,inser):
+
+    def insert_value(value, letter, inser):
 
         value = int(value)
         value = value - 1
@@ -75,44 +77,46 @@ def tic_tac_toe():
             letter = 1
         elif letter == "C":
             letter = 2
-        u=0
-        while u==0:
-            if morp[value][letter]<1:
-                morp[value][letter]=inser
-                u=1
+        u = 0
+        while u == 0:
+            if morp[value][letter] < 1:
+                morp[value][letter] = inser
+                u = 1
             else:
-                v=0
-                while v==0:
+                v = 0
+                while v == 0:
+                    restart = input("Cette case est déjà remplie, veuillez entrer une autre case:")
+                    if (restart[0] == "1" or restart[0] == "2" or restart[0] == "3") and restart[1] == "A" or restart[1] == "B" or restart[1] == "C":
 
-                    if (inputX[0] == "1" or inputX[0] == "2" or inputX[0] == "3") and inputX[1] == "A" or inputX[1] == "B" or inputX[1] == "C":
-                        restart=input("Cette case est déjà remplie, veuillez entrer une autre case:")
-                        insert_value(restart[0],restart[1],inser)
-                        u=1
-                        v=1
-                    else:
-                        v=1
-
+                        insert_value(restart[0], restart[1], inser)
+                        u = 1
+                        v = 1
 
 
     i = 0  # Compteur tour
     t = 0
 
-
     while i < 9 and verif_plateau() == 0:
         print_plateau()
         if t == 0:
-            inputX = input("Au joueur X de jouer veuillez écrire une lettre et un nombre au format suivant 1A allant de 1 à 3 et de A a C:")
-            if (inputX[0] == "1" or inputX[0] == "2" or inputX[0] == "3") and inputX[1] =="A" or inputX[1] =="B" or inputX[1] =="C":
-                insert_value(inputX[0],inputX[1], 1)
+            inputX = input(
+                "Au joueur X de jouer veuillez écrire une lettre et un nombre au format suivant 1A allant de 1 à 3 et de A a C:")
+            if (inputX[0] == "1" or inputX[0] == "2" or inputX[0] == "3") and inputX[1] == "A" or inputX[1] == "B" or \
+                    inputX[1] == "C":
+                insert_value(inputX[0], inputX[1], 1)
                 t = 1
-            else:
-                i= i-1
+            else: i-=1
+
 
         else:
-            inputX = input("Au joueur O de jouer veuillez écrire un numéro et une lettre au format suivant 1A allant de 1 à 3 et de A a C:")
-            if (inputX[0] == "1" or inputX[0] == "2" or inputX[0] == "3") and inputX[1] =="A" or inputX[1] =="B" or inputX[1] =="C":
-                insert_value(inputX[0], inputX[1], 2)
+            inputO = input(
+                "Au joueur O de jouer veuillez écrire un numéro et une lettre au format suivant 1A allant de 1 à 3 et de A a C:")
+            if (inputO[0] == "1" or inputO[0] == "2" or inputO[0] == "3") and inputO[1] == "A" or inputO[1] == "B" or \
+                    inputO[1] == "C":
+                insert_value(inputO[0], inputO[1], 2)
                 t = 0
+            else: i-=1
+
         i += 1
     print_plateau()
     if verif_plateau() > 0:
@@ -123,5 +127,6 @@ def tic_tac_toe():
             print("Victoire de O")
     else:
         print("égalité")
+
 
 tic_tac_toe()
