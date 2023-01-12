@@ -1,13 +1,17 @@
 def tic_tac_toe():
+    player1 = "Joueur 1"
+    player2 = "Joueur 2"
+    from players import player
+    player1= player.start()
     import random
     t = bool(random.getrandbits(1))
     morp = [[0, 0, 0],
         [0, 0, 0],
         [0, 0, 0]]
     if t == 0:
-        print("Le joueur 1 commence")
+        print(player1+" commence")
     else:
-        print("Le joueur 2 commence")
+        print(player2+" commence")
     import time
     time.sleep(1)
     t += 1
@@ -101,11 +105,15 @@ def tic_tac_toe():
 
     def input_verif_insert(player):
         w= player
+        print(w)
         z=0
         player=str(player)
         while z==0:
             print(morp)
-            phrase="Au joueur "+player+" de jouer veuillez écrire une lettre et un nombre au format suivant 1A allant de 1 à 3 et de A a C:"
+            if w == 1:
+                phrase = "C'est au tour de "+ player1 +" de jouer veuillez écrire une lettre et un nombre au format suivant 1A allant de 1 à 3 et de A a C:"
+            else:
+                phrase = "C'est au tour de " + player2 + " de jouer veuillez écrire une lettre et un nombre au format suivant 1A allant de 1 à 3 et de A a C:"
             inputX = input(phrase)
             if (inputX[0] == "1" or inputX[0] == "2" or inputX[0] == "3") and (inputX[1] == "A" or inputX[1] == "B" or inputX[1] == "C"):
                 if w == 1:
@@ -126,9 +134,9 @@ def tic_tac_toe():
     if verif_plateau() > 0:
 
         if verif_plateau() == 1:
-            print("Victoire du joueur 1")
+            print("Victoire de "+player1)
         elif verif_plateau() == 2:
-            print("Victoire du joueur 2")
+            print("Victoire de "+player2)
     else:
         print("égalité")
 
