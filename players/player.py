@@ -1,6 +1,7 @@
 import json
-def start():
 
+
+def start():
     def player_create():
         prompt = input("Veuillez entrer votre nom d'utilisateur à créer:")
         if prompt != "":
@@ -41,16 +42,7 @@ def start():
             print("Cet utilisateur n'existe pas")
             start()
 
-    def history(winner,loser):
-        from datetime import datetime
-        date_now = datetime.now()
-        standart_date = date_now.strftime("%d/%m/%Y %H:%M:%S")
-        f = open("history.txt", "a")
-        phrase = standart_date + ":"+winner+" a remporter la victoire sur " +loser+"\n"
-        f.write(phrase)
-        f.close()
-
-    prompt = input("Souhaitez vous créer un utilisateur,vous connecter ou jouer en tant qu'invité ?(U,C,I):")
+    prompt = input("Souhaitez vous créer un utilisateur(U),vous connecter(C), jouer en tant qu'invité(I ou juste afficher l'historique(H) ?(U,C,I,H):")
     match prompt:
         case "U":
             return player_create()
@@ -59,14 +51,15 @@ def start():
             return player_load()
         case "I":
             pass
+        case "H":
+            show_history()
+            start()
         case _:
             start()
 
 
-def player_count(winner, loser,equality):
-
+def player_count(winner, loser, equality):
     players = [winner, loser]
-
 
     for r in players:
         file = "players/" + r + ".json"
@@ -74,23 +67,30 @@ def player_count(winner, loser,equality):
         json_value = f.read()
         f.close
         dictio = json.loads(json_value)
-        dictio["game_number"]+=1
-        if equality ==0:
+        dictio["game_number"] += 1
+        if equality == 0:
             if r == winner:
-                dictio["win_number"]+=1
+                dictio["win_number"] += 1
             json_value = json.dumps(dictio)
-            f = open(file,"w")
+            f = open(file, "w")
             f.write(json_value)
             f.close()
+
     def history():
         from datetime import datetime
         date_now = datetime.now()
         standart_date = date_now.strftime("%d/%m/%Y %H:%M:%S")
         f = open("history.txt", "a")
-        if equality ==0:
-            phrase = standart_date + ":"+winner+" a remporter la victoire sur " +loser+"\n"
+        if equality == 0:
+            phrase = standart_date + ":" + winner + " a remporter la victoire sur " + loser + "\n"
         else:
             phrase = standart_date + ":" + winner + " et " + loser + " ont fait une egalite\n"
         f.write(phrase)
         f.close()
+
     history()
+
+def show_history():
+    print("Voici l'historique des parties affiché par ordre chronologique")
+    f=open("history.txt")
+    print(f.read())
