@@ -42,7 +42,7 @@ def start():
             print("Cet utilisateur n'existe pas")
             start()
 
-    prompt = input("Souhaitez vous créer un utilisateur(U),vous connecter(C), jouer en tant qu'invité(I ou juste afficher l'historique(H) ?(U,C,I,H):")
+    prompt = input("Souhaitez vous créer un utilisateur(U),vous connecter(C), jouer en tant qu'invité(I) ou juste afficher l'historique(H) ?(U,C,I,H):")
     match prompt:
         case "U":
             return player_create()
@@ -94,3 +94,4 @@ def show_history():
     print("Voici l'historique des parties affiché par ordre chronologique")
     f=open("history.txt")
     print(f.read())
+    f.close()
