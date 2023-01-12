@@ -1,8 +1,27 @@
 def tic_tac_toe():
-    player1 = "Joueur 1"
-    player2 = "Joueur 2"
+    import time
+    player1 = ""
+    player2 = ""
+    v=0
     from players import player
-    player1= player.start()
+    while v==0:
+        print("Au tour du premier joueur de se connecté")
+        time.sleep(1)
+        player1 = player.start()
+        if player1 is None:
+            player1 = "Joueur 1"
+        print(player1)
+
+        print("Au tour du second joueur de se connecté")
+        time.sleep(1)
+        player2 = player.start()
+        if player2 is None:
+            player2 = "Joueur 2"
+        if player1 == player2:
+            print("Les 2 nom d'utilisateur sont les mêmes, veuillez recommencer")
+            time.sleep(3)
+        else:
+            v=1
     import random
     t = bool(random.getrandbits(1))
     morp = [[0, 0, 0],
@@ -12,8 +31,7 @@ def tic_tac_toe():
         print(player1+" commence")
     else:
         print(player2+" commence")
-    import time
-    time.sleep(1)
+
     t += 1
 
     def print_plateau():
@@ -107,9 +125,8 @@ def tic_tac_toe():
         w= player
         print(w)
         z=0
-        player=str(player)
         while z==0:
-            print(morp)
+
             if w == 1:
                 phrase = "C'est au tour de "+ player1 +" de jouer veuillez écrire une lettre et un nombre au format suivant 1A allant de 1 à 3 et de A a C:"
             else:
@@ -135,10 +152,14 @@ def tic_tac_toe():
 
         if verif_plateau() == 1:
             print("Victoire de "+player1)
+            player.player_count(player1, player2,0)
         elif verif_plateau() == 2:
             print("Victoire de "+player2)
+            player.player_count(player2, player1,0)
     else:
         print("égalité")
+        player.player_count(player2, player1, 1)
+
 
 
 tic_tac_toe()
