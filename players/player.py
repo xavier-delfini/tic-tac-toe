@@ -1,7 +1,9 @@
 import json
-
+import glob, os
+os.chdir("players/")
 
 def start():
+
     def player_create():
         prompt = input("Veuillez entrer votre nom d'utilisateur à créer:")
         if prompt != "":
@@ -13,7 +15,7 @@ def start():
 
                 }
                 json_value = json.dumps(user)
-                fichier = "players/" + prompt + ".json"
+                fichier = "" + prompt + ".json"
 
                 f = open(fichier, "x")
                 f.close()
@@ -30,17 +32,31 @@ def start():
             player_create()
 
     def player_load():
-        prompt = input("Veuillez entrer votre nom d'utilisateur a utiliser:")
+        import glob, os
+        for utilisateur in glob.glob("*.json"):
+            print(utilisateur[:-5])
+        prompt = input("Veuillez choisir un nom d'utilisateur parmis la liste ci-dessus:")
+        print(prompt)
+
         try:
-            fichier = "players/" + prompt + ".json"
+            fichier = "" + prompt + ".json"
             f = open(fichier)
             json_value = f.read()
             f.close
             dictio = json.loads(json_value)
-            return dictio["name"]
+            prompt= input("Bienvenue "+prompt+",souhaitez vous voir votre score ?(YN)")
         except Exception:
             print("Cet utilisateur n'existe pas")
             start()
+        if prompt == "Y":
+            games=dictio["game_number"]
+            games=str(games)
+            wins=dictio["win_number"]
+            wins=str(wins)
+            phrase="Votre nombre total de partie est de "+ games+" et votre nombre de victoire est de "+wins
+            print(phrase)
+        return dictio["name"]
+
 
     prompt = input("Souhaitez vous créer un utilisateur(U),vous connecter(C), jouer en tant qu'invité(I) ou juste afficher l'historique(H) ?(U,C,I,H):")
     match prompt:
@@ -62,7 +78,7 @@ def player_count(winner, loser, equality):
     players = [winner, loser]
 
     for r in players:
-        file = "players/" + r + ".json"
+        file = r + ".json"
         f = open(file)
         json_value = f.read()
         f.close

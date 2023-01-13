@@ -1,5 +1,8 @@
 def tic_tac_toe():
     import time
+    morp = [[0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]]
     player1 = ""
     player2 = ""
     v=0
@@ -10,23 +13,25 @@ def tic_tac_toe():
         player1 = player.start()
         if player1 is None:
             player1 = "Joueur 1"
-        print(player1)
 
-        print("Au tour du second joueur de se connecté")
-        time.sleep(1)
-        player2 = player.start()
-        if player2 is None:
-            player2 = "Joueur 2"
-        if player1 == player2:
-            print("Les 2 nom d'utilisateur sont les mêmes, veuillez recommencer")
-            time.sleep(3)
+        prompt = input("Souhaitez-vous jouer contre un bot ?(YN):")
+        if prompt == "Y":
+            import ai
+            ai.ia(morp,2)
         else:
-            v=1
+            print("Au tour du second joueur de se connecté")
+            time.sleep(1)
+            player2 = player.start()
+            if player2 is None:
+                player2 = "Joueur 2"
+            if player1 == player2:
+                print("Les 2 nom d'utilisateur sont les mêmes, veuillez recommencer")
+                time.sleep(3)
+            else:
+                v=1
     import random
     t = bool(random.getrandbits(1))
-    morp = [[0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]]
+
     if t == 0:
         print(player1+" commence")
     else:
@@ -120,7 +125,6 @@ def tic_tac_toe():
                         v = 1
 
     i = 0  # Compteur tour
-
     def input_verif_insert(player):
         w= player
         print(w)
